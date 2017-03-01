@@ -1,0 +1,51 @@
+<div class="widget small-12">
+    <div class="widget__inner">
+        <h3>
+            Топ по просмотрам
+        </h3>
+
+        <h4>
+            Фильмы
+        </h4>
+        <table>
+            <thead>
+            <th>ID</th>
+            <th>Название</th>
+            <th width="150">Количество просмотров</th>
+            </thead>
+            <tbody>
+            <?php foreach($films as $film){?>
+                <tr>
+                    <td><?=$film->id;?></td>
+                    <td><a href="/manage/film/<?=$film->id;?>"><?=$film->title;?></a></td>
+                    <td><?=$film->views_count;?></td>
+                </tr>
+            <?php }?>
+            </tbody>
+        </table>
+
+        <h4>
+            Серии сериалов
+        </h4>
+        <table>
+            <thead>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Сезон</th>
+            <th>Серия</th>
+            <th width="150">Количество просмотров</th>
+            </thead>
+            <tbody>
+            <?php foreach($series as $ser){?>
+                <tr>
+                    <td><?=$ser->id;?></td>
+                    <td><a href="/manage/series/<?=$ser->id;?>"><?=$ser->title;?></a></td>
+                    <td><?=$ser->season;?></td>
+                    <td><?=$ser->series_num;?></td>
+                    <td><?=$ser->views_count;?></td>
+                </tr>
+            <?php }?>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+<div class="header-wrap header-wrap--inside">
+    <?php $this->partial('shared/menu-wrap');?>
+</div>
+<script>
+    var series_id = <?=$series->id;?>;
+</script>
+<section class="section section--one-series-head">
+    <div class="section-inner section-inner_inside main-width">
+        <h2 class="title title--one-series-inside"><?=$series->title;?></h2>
+        <div class="player-wrap">
+            <div class="player-wrap-inner col-6-gut-5">
+                <video class="video video--inner video-js vjs-default-skin" id="video" controls preload="none">
+                    <source src="<?=$series->video_src;?>" type="video/mp4">
+                </video>
+            </div>
+            <div class="player-wrap-description col-4-gut-3">
+                <h2 class="title title--add-info">
+                    TMDB
+                </h2>
+                <div class="title title--add-info-value">
+                    <?=$serial->stars;?>
+                </div>
+                <h2 class="title title--add-info">
+                    Сумма просмотров
+                </h2>
+                <div class="title title--add-info-value">
+                    <?=$series->views_count;?>
+                </div>
+                <div class="season-info season-info--inside">
+                    <div class="rating-wrap">
+                        <ul class="rating" data-rating="<?=round($serial->stars/2,0,PHP_ROUND_HALF_UP);?>">
+                            <li class="rating__item"></li>
+                            <li class="rating__item"></li>
+                            <li class="rating__item"></li>
+                            <li class="rating__item"></li>
+                            <li class="rating__item"></li>
+                        </ul>
+                    </div>
+                    <?=$serial->year;?>
+                    <span class="additional-info">
+                                <?=$serial->getRating();?>
+                            </span>
+                    <?=$series->season;?> сезон
+                            <span class="additional-info">
+                                HD
+                            </span>
+                    <!--span class="additional-info">
+                        5.1
+                    </span-->
+                    <div class="season__text">
+                        <?=$serial->description;?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section section--one-series-seasons">
+    <div class="section-inner section-inner--season main-width">
+        <div class="seasons">
+            <div class="tabs">
+                <div class="tabs__head">
+                    <ul class="tabs__head-items">
+                        <?php
+                        foreach($seasons as $season){?>
+                            <li class="tabs__head-item">
+                                <?=$season->season;?> сезон
+                            </li>
+                            <?php
+                        }?>
+                    </ul>
+                </div>
+                <div class="tabs__items">
+                    <?php
+                    foreach($serial_series as $season => $season_series){?>
+                        <div class="tabs__item">
+                            <div class="tabs__item-wrap">
+                                <?php
+                                foreach($season_series as $series){?>
+                                    <div class="one-series one-series--season" data-seriesid="<?=$series->id;?>">
+                                        <a href="/serial/<?=$serial->label;?>/<?=$series->season;?>/<?=$series->series_num;?>" class="one-series__link"
+                                            title="Сериал <?=$serial->title;?> <?=$series->season;?> сезон <?=$series->series_num;?> серия смотреть онлайн">
+                                            <div class="one-series__image-wrap one-series__image-wrap--series" style="background-image: url(<?=$series->getImageThumb();?>)">
+
+                                            </div>
+                                        </a>
+                                        <a href="/serial/<?=$serial->label;?>/<?=$series->season;?>/<?=$series->series_num;?>" class="one-series__link"
+                                           title="Сериал <?=$serial->title;?> <?=$series->season;?> сезон <?=$series->series_num;?> серия смотреть онлайн">
+                                            <div class="one-series__title"><?=$series->season;?> сезон</div>
+                                        </a>
+                                        <div class="one-series__more-info">
+                                            <?=$series->series_num;?> серия
+                                        </div>
+                                    </div>
+                                    <?php
+                                }?>
+                            </div>
+                        </div>
+                        <?php
+                    }?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var video_src = '<?=$series->video_src;?>';
+    <?php
+        if($commercial){ ?>
+    var com_pre = '<?=$commercial->video_src;?>';
+    var com_pre_link = '<?=$commercial->link;?>';
+    <?php
+        } ?>
+</script>

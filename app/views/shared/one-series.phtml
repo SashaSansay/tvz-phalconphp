@@ -1,0 +1,14 @@
+<div class="one-series">
+    <a href="/serial/<?=$serial->label;?>/<?=$series->season;?>/<?=$series->series_num;?>" class="one-series__link">
+        <div class="one-series__image-wrap"><img class="one-series__image" src="<?=$serial->getImageThumb();?>" alt=""/></div>
+    </a>
+    <a href="/serial/<?=$serial->label;?>/<?=$series->season;?>/<?=$series->series_num;?>" class="one-series__link">
+        <div class="one-series__title"><?=$serial->title;?></div>
+    </a>
+    <div class="one-series__more-info">
+        <span class="additional-info additional-info_small">
+            <?=$serial->getRating();?>
+        </span>
+        <?=$series->season;?> сезон
+    </div>
+</div>

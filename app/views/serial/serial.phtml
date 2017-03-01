@@ -1,0 +1,78 @@
+
+<section class="section section-main">
+    <?php $this->partial('shared/menu-wrap');?>
+    <div class="main-section__image" style="background-image: url(<?=$serial->getImageBackThumb();?>)"></div>
+    <div class="section-inner section-inner_main main-width">
+        <div class="main-section__title"><?=$serial->title;?></div>
+        <div class="season-info">
+            <div class="rating-wrap">
+                <ul class="rating" data-rating="<?=round($serial->stars/2,0,PHP_ROUND_HALF_UP);?>">
+                    <li class="rating__item"></li>
+                    <li class="rating__item"></li>
+                    <li class="rating__item"></li>
+                    <li class="rating__item"></li>
+                    <li class="rating__item"></li>
+                </ul>
+            </div>
+            <?=$serial->year;?>
+            <span class="additional-info">
+                        <?=$serial->getRating();?>
+                    </span>
+                    <span class="additional-info">
+                        HD
+                    </span>
+            <!--span class="additional-info">
+                5.1
+            </span-->
+            <div class="season__text col-6-gut-5">
+                <?=$serial->description;?>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section section--series-one">
+    <div class="section-inner section-inner--season main-width">
+        <div class="seasons">
+            <div class="tabs">
+                <div class="tabs__head">
+                    <ul class="tabs__head-items">
+                        <?php
+                        foreach($seasons as $season){?>
+                            <li class="tabs__head-item">
+                                <?=$season->season;?> сезон
+                            </li>
+                            <?php
+                        }?>
+                    </ul>
+                </div>
+                <div class="tabs__items">
+                    <?php
+                    foreach($serial_series as $season => $season_series){?>
+                        <div class="tabs__item">
+                            <div class="tabs__item-wrap">
+                                <?php
+                                foreach($season_series as $series){?>
+                                    <div class="one-series one-series--season" data-seriesid="<?=$series->id;?>">
+                                        <a href="/serial/<?=$serial->label;?>/<?=$series->season;?>/<?=$series->series_num;?>" class="one-series__link"
+                                           title="Сериал <?=$serial->title;?> <?=$series->season;?> сезон <?=$series->series_num;?> серия смотреть онлайн">
+                                            <div class="one-series__image-wrap one-series__image-wrap--series" style="background-image: url(<?=$series->getImageThumb();?>)"></div>
+                                        </a>
+                                        <a href="/serial/<?=$serial->label;?>/<?=$series->season;?>/<?=$series->series_num;?>" class="one-series__link"
+                                           title="Сериал <?=$serial->title;?> <?=$series->season;?> сезон <?=$series->series_num;?> серия смотреть онлайн">
+                                            <div class="one-series__title"><?=$series->season;?> сезон</div>
+                                        </a>
+                                        <div class="one-series__more-info">
+                                            <?=$series->series_num;?> серия
+                                        </div>
+                                    </div>
+                                    <?php
+                                }?>
+                            </div>
+                        </div>
+                        <?php
+                    }?>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

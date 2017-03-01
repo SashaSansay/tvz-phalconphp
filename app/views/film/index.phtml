@@ -1,0 +1,66 @@
+<div class="header-wrap header-wrap--inside">
+    <?php $this->partial('shared/menu-wrap');?>
+</div>
+<section class="section section--one-series-head">
+    <div class="section-inner section-inner_inside main-width">
+        <h2 class="title title--one-series-inside"><?=$film->title;?></h2>
+        <div class="player-wrap">
+            <div class="player-wrap-inner col-6-gut-5">
+                <video class="video video--inner video-js vjs-default-skin" id="video" controls preload="auto">
+                    <source src="<?=$film->video_src;?>" type="video/mp4">
+                </video>
+            </div>
+            <div class="player-wrap-description col-4-gut-3">
+                <h2 class="title title--add-info">
+                    TMDB
+                </h2>
+                <div class="title title--add-info-value">
+                    <?=$film->stars;?>
+                </div>
+                <h2 class="title title--add-info">
+                    Сумма просмотров
+                </h2>
+                <div class="title title--add-info-value">
+                    <?=$film->views_count;?>
+                </div>
+                <div class="season-info season-info--inside">
+                    <div class="rating-wrap">
+                        <ul class="rating" data-rating="<?=round($film->stars/2,0,PHP_ROUND_HALF_UP);?>">
+                            <li class="rating__item"></li>
+                            <li class="rating__item"></li>
+                            <li class="rating__item"></li>
+                            <li class="rating__item"></li>
+                            <li class="rating__item"></li>
+                        </ul>
+                    </div>
+                    <?php
+                    if($film->release_date){
+                        $date = DateTime::createFromFormat('Y-m-d',$film->release_date);
+                        echo $date->format('Y');
+                    }?>
+                    <span class="additional-info">
+                                <?=$film->getRating();?>
+                            </span>
+                            <span class="additional-info">
+                                HD
+                            </span>
+                    <!--span class="additional-info">
+                        5.1
+                    </span-->
+                    <div class="season__text">
+                        <?=$film->description;?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    var video_src = '<?=$film->video_src;?>';
+    <?php
+        if($commercial){ ?>
+    var com_pre = '<?=$commercial->video_src;?>';
+    var com_pre_link = '<?=$commercial->link;?>';
+    <?php
+        } ?>
+</script>

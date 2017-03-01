@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TVZ</title>
+    <meta name="robots" content="noindex"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="/admin/css/foundation.css">
+    <link rel="stylesheet" href="/admin/css/foundation-icons.css">
+    <link rel="stylesheet" href="/admin/css/app.css">
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="large-2 medium-3 small-12 columns head-left">
+        <a href="/manage"><strong class="site-title">TVZ Admin</strong></a>
+    </div>
+    <? if($auth['status'] != 0) {?>
+        <div class="top-bar-right">
+            <ul class="dropdown menu" data-dropdown-menu>
+                <li><a href="/manage/logout">Выйти</a></li>
+            </ul>
+        </div>
+    <?php }?>
+</div>
+<? if($auth['status'] == 0) {?>
+    <form action="/manage/login" method="get" class="login-form">
+        <div class="row">
+            <label>
+                Введите пароль
+                <input type="password" <?php if(isset($_REQUEST['error'])){?> class="is-invalid-input" <?php }?>name="pass" placeholder="Пароль" required>
+            </label>
+            <button class="success button" name="Send" type="submit">Войти</button>
+        </div>
+    </form>
+<?}else{?>
+    <div class="admin-inner clearfix">
+        <div class="large-2 medium-3 small-12 columns admin-left">
+            <ul class="vertical menu">
+                <li><a href="/manage"><i class="fi-home"></i> Главная</a></li>
+                <li><a href="/manage/category"><i class="fi-page-multiple"></i> Категории</a></li>
+                <li><a href="/manage/commercial"><i class="fi-burst"></i> Реклама</a></li>
+                <li><a href="/manage/film"><i class="fi-play"></i> Фильмы</a></li>
+                <li><a href="/manage/serial"><i class="fi-play"></i> Сериалы</a></li>
+                <li><a href="/manage/series"><i class="fi-next"></i> Серии сериалов</a></li>
+                <li><a href="/manage/options"><i class="fi-widget"></i> Опции</a></li>
+            </ul>
+        </div>
+        <div class="large-10 medium-9 small-12 columns admin-right">
+            <div class="admin-right__inner">
+                <?php echo $this->getContent(); ?>
+            </div
+        </div>
+    </div>
+<?}?>
+<script src="/admin/js/vendor/jquery.js"></script>
+<script src="/admin/js/vendor/what-input.js"></script>
+<script src="/admin/js/vendor/foundation.js"></script>
+<script src="/admin/js/app.js"></script>
+</body>
+</html>

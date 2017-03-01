@@ -1,0 +1,117 @@
+<div class="header-wrap header-wrap--inside">
+    <?php $this->partial('shared/menu-wrap');?>
+</div>
+<section class="section section--list-info">
+    <div class="section-inner main-width">
+        <div class="filter">
+            <div class="filter__title">
+                Жанры:
+            </div>
+            <div class="filter__list">
+                <a href="#" data-filter="cat-all" class="filter__val filter__val--active">Все</a>
+                <?php foreach($cats as $cat){
+                    $active = true;
+                    $s_cat = CategorySerial::findFirst('category_id = '.$cat->id);
+                    $f_cat = CategoryFilm::findFirst('category_id = '.$cat->id);
+                    if(!$s_cat && !$f_cat){
+                        $active = false;
+                    }
+                    ?>
+                    <a href="#" data-filter="cat-<?=$cat->id;?>" class="filter__val<?php if(!$active){?> filter__val--inactive<?php }?>"
+                       <?php if(!$s_cat){?>data-no-serial<?php }?>
+                       <?php if(!$f_cat){?>data-no-film<?php }?>
+                    ><?=$cat->title;?></a>
+                <?php }?>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="section section--list">
+    <div class="section-inner section-inner--list main-width">
+        <div class="secondary-title">
+            Сериалы
+        </div>
+        <div class="section-series__series-wrap series-wrap">
+            <div class="series-wrap__inner">
+            <?php
+            foreach($serials as $serial){
+                $s_cats = [];
+                foreach($serial->getCategorySerial() as $cat){
+                    $s_cats[] = $cat->getCategory();
+                }
+                ?>
+                <div class="one-series one-series--filter"
+                     data-filter-cat-all
+                    <?php foreach($s_cats as $cat){?> data-filter-cat-<?=$cat->id;?><?php }?>
+                >
+                    <a href="/serial/<?= $serial->label; ?>" class="one-series__link">
+                        <div class="one-series__image-wrap"><img class="one-series__image"
+                                                                 src="<?= $serial->getImageThumb(); ?>" alt=""></div>
+                    </a>
+                    <a href="/serial/<?= $serial->label; ?>" class="one-series__link">
+                        <div class="one-series__title"><?= $serial->title; ?></div>
+                    </a>
+                    <div class="one-series__more-info">
+                        <span class="additional-info additional-info_small">
+                            <?= $serial->getRating(); ?>
+                        </span>
+                        <?php
+                        foreach($s_cats as $cat){
+                            ?>
+                            <span class="additional-info additional-info_small">
+                                <a href="#" class="additional-info__filter" data-filter="cat-<?=$cat->id;?>"><?= $cat->title; ?></a>
+                            </span>
+                        <?php
+                        }
+                            ?>
+                    </div>
+                </div>
+            <?php
+            }?>
+            </div>
+        </div>
+        <div class="secondary-title">
+            Фильмы
+        </div>
+        <div class="section-series__series-wrap series-wrap">
+            <div class="series-wrap__inner">
+            <?php
+            foreach($films as $film){
+                $f_cats = [];
+                foreach($film->getCategoryFilm() as $cat){
+                    $f_cats[] = $cat->getCategory();
+                }?>
+                <div class="one-series one-series--filter"
+                     data-filter-cat-all
+                    <?php foreach($f_cats as $cat){?> data-filter-cat-<?=$cat->id;?><?php }?>
+                >
+                    <a href="/film/<?= $film->label; ?>" class="one-series__link">
+                        <div class="one-series__image-wrap"><img class="one-series__image"
+                                                                 src="<?= $film->getImageThumb(); ?>" alt=""></div>
+                    </a>
+                    <a href="/film/<?= $film->label; ?>" class="one-series__link">
+                        <div class="one-series__title"><?= $film->title; ?></div>
+                    </a>
+                    <div class="one-series__more-info">
+                            <span class="additional-info additional-info_small">
+                                <?= $film->getRating(); ?>
+                            </span>
+                        <?php
+                        foreach($film->getCategoryFilm() as $cat){
+                            $cat = $cat->getCategory();
+                            ?>
+                            <span class="additional-info additional-info_small">
+                                    <a href="#"><?= $cat->title; ?></a>
+                                </span>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
+            </div>
+        </div>
+    </div>
+</section>

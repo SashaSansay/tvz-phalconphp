@@ -1,0 +1,100 @@
+body{
+    background: #0a0c0e;
+    color: #fff;
+}
+a{
+    color: #fff;
+    font-weight: bold;
+}
+.top-bar{
+    background: #13171b;
+    box-shadow: #000 0 0 52px;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    padding: 0;
+    position: fixed;
+    width: 100%;
+}
+.top-bar ul{
+    background: #2d2d2d;
+}
+.admin-inner{
+    display: flex;
+    min-height: 100vh;
+    padding-top: 3.5rem;
+}
+
+.admin-left{
+    background: #000;
+}
+.admin-left .menu{
+    margin-top: 1.5rem;
+    position: fixed;
+}
+.admin-right__inner{
+    margin-top: 3.5rem;
+    margin-bottom: 3.5rem;
+}
+table thead, table tfoot{
+    background: #3a3a3a;
+    color: #fff;
+    border: 0;
+}
+
+table thead, table tbody, table tfoot{
+    border: 0;
+    background: #444;
+}
+table tbody tr:nth-child(even){
+    background: #313131;
+}
+table a{
+
+    border-bottom: 1px solid ;
+    border-color: currentColor;
+}
+
+table thead{
+    border-bottom: 1px solid #0a0c0e;
+}
+label{
+    color: #fff;
+}
+
+label input{
+    color: #0a0a0a;
+}
+
+.admin-right__inner form img{
+    display: block;
+    max-width: 500px;
+}
+fieldset{
+    background: rgba(255,255,255,0.3);
+    padding: 2.5rem;
+}
+
+.login-form{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    width: 25rem;
+}
+
+.widget{
+    padding: 1rem;
+    background: rgba(255,255,255,.2);
+    border: 1px solid rgba(255,255,255,.3)
+}
+
+/*
+
+fieldset label{
+    display: inline-block;
+}
+
+fieldset label + label{
+    margin-left: 1rem;
+}*/

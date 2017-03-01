@@ -1,0 +1,101 @@
+<?php
+if(!$single) {
+    ?>
+    <h2>Серии</h2>
+    <div class="small button-group">
+        <a class="button" href="/manage/series/add">Добавить новый</a>
+    </div>
+    <table>
+        <thead> 
+            <th>ID</th>
+            <th>Название</th>
+            <th>Сериал</th>
+            <th>Сезон</th>
+            <th>Номер серии</th>
+            <th>Дата релиза</th>
+            <th>Количество просмотров</th>
+            <th></th>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($seriess as $series) {
+            ?>
+            <tr>
+                <td><?=$series->id;?></td>
+                <td><a href="/manage/series/<?= $series->id; ?>"><?=$series->title;?></a></td>
+                <td><a href="/manage/serial/<?=$series->getSerial()->id;?>"><?=$series->getSerial()->title;?></a></td>
+                <td><?=$series->season;?></td>
+                <td><?=$series->series_num;?></td>
+                <td><?=$series->publish;?></td>
+                <td><?=$series->views_count;?></td>
+
+                <td>
+                    <a href="/manage/series/<?= $series->id; ?>/delete"><i class="fi-x"></i></a>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php
+}else{
+    $id = $series->id;
+    if(is_null($id)){
+        $id = 'add';
+    }
+
+    ?>
+    <form method="post" name="form" action="/manage/series/<?=$id;?>/update">
+        <div class="row">
+            <label for="">
+                Название
+                <input type="text" name="title" value="<?=$series->title;?>">
+            </label>
+            <label for="">
+                Сезон
+                <input type="number" name="season" value="<?=$series->season;?>">
+            </label>
+            <label for="">
+                Номер серии
+                <input type="number" name="series_num" value="<?=$series->series_num;?>">
+            </label>
+            <label for="">
+                URL видео
+                <input type="text" name="video_src" value="<?=$series->video_src;?>">
+            </label>
+            <label for="">
+                Сериал
+                <select name="serial_id" id="serial_id">
+                    <option value="">---</option>
+                    <?php
+                    foreach($serials as $serial){
+                        ?>
+                        <option value="<?=$serial->id;?>" <?php if($series->serial_id==$serial->id){?>selected <?php }?>><?=$serial->title;?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+            </label>
+            <label for="">
+                Реклама
+                <select name="commercial_id" id="commercial_id">
+                    <option value="">---</option>
+                    <?php
+                    foreach($commercials as $commercial){
+                        ?>
+                        <option value="<?=$commercial->id;?>" <?php if($series->commercial_id==$commercial->id){?>selected <?php }?>><?=$commercial->title;?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+            </label>
+            <label for="">
+                Количество просмотров
+                <input type="text" name="views_count" value="<?=$series->views_count;?>">
+            </label>
+            <input type="submit" class="button" value="Сохранить">
+        </div>
+    </form>
+    <?php
+}

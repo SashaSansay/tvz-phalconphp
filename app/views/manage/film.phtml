@@ -1,0 +1,136 @@
+<?php
+if(!$single) {
+    ?>
+    <h2>Фильмы</h2>
+    <div class="small button-group">
+        <a class="button" href="/manage/film/add">Добавить новый</a>
+    </div>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>TMDB id</th>
+        <th>Название</th>
+        <th>Название (EN)</th>
+        <th>Постер</th>
+        <th>Задник</th>
+        <th>Рейтинг</th>
+        <th>Звезды</th>
+        <th>Описание</th>
+        <th>Количество просмотров</th>
+        <th>Дата релиза</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($films as $film) {
+            ?>
+            <tr>
+                <td><?=$film->id;?></td>
+                <td><?=$film->tmdb_id;?></td>
+                <td><a href="/manage/film/<?= $film->id; ?>"><?=$film->title;?></a></td>
+                <td><?=$film->title_en;?></td>
+                <td><img src="<?=$film->image;?>" alt=""></td>
+                <td><img src="<?=$film->image_back;?>" alt=""></td>
+                <td><?=$film->rating;?></td>
+                <td><?=$film->stars;?></td>
+                <td><?=$film->description;?></td>
+                <td><?=$film->views_count;?></td>
+                <td><?=$film->release_date;?></td>
+
+                <td>
+                    <a href="/manage/film/<?= $film->id; ?>/delete"><i class="fi-x"></i></a>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php
+}else{
+    $id = $film->id;
+    if(is_null($id)){
+        $id = 'add';
+    }
+
+    ?>
+    <form method="post" name="form" action="/manage/film/<?=$id;?>/update">
+        <div class="row">
+            <label for="">
+                TMDB id &nbsp;&nbsp;&nbsp;<a href="#" class="tmdb-link"><i class="fi-arrow-down"></i> get from tmdb</a>
+                <input type="text" name="tmdb_id" value="<?=$film->tmdb_id;?>">
+            </label>
+            <label for="">
+                Название
+                <input type="text" name="title" value="<?=$film->title;?>">
+            </label>
+            <label for="">
+                Название (EN)
+                <input type="text" name="title_en" value="<?=$film->title_en;?>">
+            </label>
+            <label for="">
+                ЧПУ &nbsp;&nbsp;&nbsp; <a href="#" class="gen-label"><i class="fi-wrench"></i> generate</a>
+                <input type="text" name="label" value="<?=$film->label;?>">
+            </label>
+            <label for="">
+                Постер
+                <img src="<?=$film->image;?>" alt="">
+                <input type="text" name="image" value="<?=$film->image;?>">
+            </label>
+            <label for="">
+                Задник
+                <img src="<?=$film->image_back;?>" alt="">
+                <input type="text" name="image_back" value="<?=$film->image_back;?>">
+            </label>
+            <label for="">
+                Возрастной рейтинг
+                <input type="text" name="rating" value="<?=$film->rating;?>">
+            </label>
+            <label for="">
+                Количество звезд
+                <input type="text" name="stars" value="<?=$film->stars;?>">
+            </label>
+            <label for="">
+                Описание
+                <textarea name="description" id="" cols="30" rows="10"><?=$film->description;?></textarea>
+            </label>
+            <label for="">
+                URL видео
+                <input type="text" name="video_src" value="<?=$film->video_src;?>">
+            </label>
+            <label for="">
+                Реклама
+                <select name="commercial_id" id="commercial_id">
+                    <option value="">---</option>
+                    <?php
+                    foreach($commercials as $commercial){
+                        ?>
+                        <option value="<?=$commercial->id;?>" <?php if($film->commercial_id==$commercial->id){?>selected <?php }?>><?=$commercial->title;?></option>
+                        <?php
+                    }
+                    ?>
+                </select>
+            </label>
+            <label for="">
+                Количество просмотров
+                <input type="text" name="views_count" value="<?=$film->views_count;?>">
+            </label>
+            <fieldset>
+                <legend>Категории</legend>
+                <?php
+                foreach($cats as $cat){
+                    ?>
+                    <label><input name="category[]" type="checkbox" data-tmdb="<?=$cat['tmdb_id'];?>" value="<?=$cat['id'];?>" <?php if($cat['selected']==true){?>checked<?php }?>> <?=$cat['title'];?></label>
+                <?php
+                }
+                ?>
+            </fieldset>
+
+            <input type="submit" class="button" value="Сохранить">
+        </div>
+    </form>
+    <script>
+        var type_ = 'film';
+    </script>
+    <?php
+}

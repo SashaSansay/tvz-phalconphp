@@ -1,0 +1,94 @@
+<?php
+if($promo){
+    $last = Series::findFirst(array(
+        'conditions' => 'serial_id = '.$promo->id,
+        'order' => 'id DESC'
+    ));
+}
+?>
+<section class="section section-main">
+    <?php $this->partial('shared/menu-wrap');?>
+    <a class="main-section__link" href="/serial/<?=$promo->label;?>/<?=$last->season;?>/<?=$last->series_num;?>">
+        <div class="main-section__image" style="background-image: url(<?=$promo->getImageBackThumb();?>)"></div>
+        <div class="section-inner section-inner_main main-width">
+            <div class="main-section__title"><?=$promo->title;?></div>
+            <div class="season-info">
+                <div class="rating-wrap">
+                    <ul class="rating" data-rating="<?=round($promo->stars/2,0,PHP_ROUND_HALF_UP);?>">
+                        <li class="rating__item"></li>
+                        <li class="rating__item"></li>
+                        <li class="rating__item"></li>
+                        <li class="rating__item"></li>
+                        <li class="rating__item"></li>
+                    </ul>
+                </div>
+                <?=$promo->year;?>
+                        <span class="additional-info">
+                            <?=$promo->getRating();?>
+                        </span>
+                <?=$last->season;?> сезон
+                        <span class="additional-info">
+                            HD
+                        </span>
+                        <!--span class="additional-info">
+                            5.1
+                        </span-->
+                <div class="season__text col-4-gut-3">
+                    <?=$promo->description;?>
+                </div>
+            </div>
+        </div>
+    </a>
+</section>
+<section class="section section-series">
+    <div class="section-inner section-inner_series main-width">
+        <div class="secondary-title">
+            Новые сериалы <a class="link-mail" href="#opensub"></a>
+        </div>
+        <div class="section-series__series-wrap series-wrap">
+            <div class="series-wrap__inner">
+                <?php
+                foreach($last_series as $series){
+                    $serial = $series->getSerial();?>
+                    <? $this->partial('shared/one-series');?>
+                <?php
+                }
+                ?>
+            </div>
+        </div>
+        <div class="secondary-title">
+            Популярные сериалы
+        </div>
+        <div class="section-series__series-wrap series-wrap">
+            <div class="series-wrap__inner">
+                <?php
+                foreach($popular_serials as $serial){
+                    $series = Series::findFirst(array(
+                        'conditions' => 'serial_id = '.$serial->id,
+                        'order' => 'id DESC'
+                    ))
+                    ?>
+                    <? $this->partial('shared/one-series');?>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+        <div class="secondary-title">
+            Фильмы
+        </div>
+        <div class="section-series__series-wrap series-wrap">
+            <div class="series-wrap__inner">
+                <?php
+                foreach($films as $film){
+                    if($film->release_date){
+                        $date = DateTime::createFromFormat('Y-m-d',$film->release_date);
+                    }?>
+                    <? $this->partial('shared/one-film');?>
+                    <?php
+                }
+                ?>
+            </div>
+        </div>
+    </div>
+</section>

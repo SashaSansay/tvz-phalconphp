@@ -1,0 +1,17 @@
+<div class="one-series">
+    <a href="/film/<?=$film->label;?>" class="one-series__link"
+        title="Смотреть фильм <?=$film->title;?> онлайн">
+        <div class="one-series__image-wrap"><img class="one-series__image" src="<?=$film->getImageThumb();?>" alt=""/></div>
+    </a>
+    <a href="/film/<?=$film->label;?>" class="one-series__link"
+        title="Смотреть фильм <?=$film->title;?> онлайн">
+        <div class="one-series__title"><?=$film->title;?></div>
+    </a>
+    <div class="one-series__more-info">
+                            <span class="additional-info additional-info_small">
+                                <?=$film->getRating();?>
+                            </span>
+        <?php
+        if(isset($date)){echo $date->format('Y');}?> год
+    </div>
+</div>

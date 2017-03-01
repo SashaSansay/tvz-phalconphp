@@ -1,0 +1,59 @@
+<?php
+if(!$single) {
+    ?>
+    <h2>Категории</h2>
+    <div class="small button-group">
+        <a class="button" href="/manage/category/add">Добавить новый</a>
+    </div>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>TMDB id</th>
+        <th>Название</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($cats as $cat) {
+            ?>
+            <tr>
+                <td>
+                    <?= $cat->id; ?>
+                </td>
+                <td>
+                    <?= $cat->tmdb_id; ?>
+                </td>
+                <td>
+                    <a href="/manage/category/<?= $cat->id; ?>"><?= $cat->title; ?></a>
+                </td>
+                <td>
+                    <a href="/manage/category/<?= $cat->id; ?>/delete"><i class="fi-x"></i></a>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php
+}else{
+    $id = $cat->id;
+    if(is_null($id)){
+        $id = 'add';
+    }
+    ?>
+    <form method="post" name="form" action="/manage/category/<?=$id;?>/update">
+        <div class="row">
+            <label>
+                TMDB id
+                <input type="text" name="tmdb_id" value="<?=$cat->tmdb_id;?>">
+            </label>
+            <label>
+                Название
+                <input type="text" name="title" value="<?=$cat->title;?>">
+            </label>
+            <input type="submit" class="button" value="Сохранить">
+        </div>
+    </form>
+<?php
+}

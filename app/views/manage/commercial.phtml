@@ -1,0 +1,67 @@
+<?php
+if(!$single) {
+    ?>
+    <h2>Реклама</h2>
+    <div class="small button-group">
+        <a class="button" href="/manage/commercial/add">Добавить новую</a>
+    </div>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>URL видео</th>
+        <th>Ссылка</th>
+        <th>Название</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($commercials as $commercial) {
+            ?>
+            <tr>
+                <td>
+                    <?= $commercial->id; ?>
+                </td>
+                <td>
+                    <?= $commercial->video_src; ?>
+                </td>
+                <td>
+                    <?= $commercial->link; ?>
+                </td>
+                <td>
+                    <a href="/manage/commercial/<?= $commercial->id; ?>"><?= $commercial->title; ?></a>
+                </td>
+                <td>
+                    <a href="/manage/commercial/<?= $commercial->id; ?>/delete"><i class="fi-x"></i></a>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php
+}else{
+    $id = $commercial->id;
+    if(is_null($id)){
+        $id = 'add';
+    }
+    ?>
+    <form method="post" name="form" action="/manage/commercial/<?=$id;?>/update">
+        <div class="row">
+            <label>
+                URL видео
+                <input type="text" name="video_src" value="<?=$commercial->video_src;?>">
+            </label>
+            <label>
+                Ссылка
+                <input type="text" name="link" value="<?=$commercial->link;?>">
+            </label>
+            <label>
+                Название
+                <input type="text" name="title" value="<?=$commercial->title;?>">
+            </label>
+            <input type="submit" class="button" value="Сохранить">
+        </div>
+    </form>
+    <?php
+}

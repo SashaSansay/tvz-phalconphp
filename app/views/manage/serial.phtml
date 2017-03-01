@@ -1,0 +1,116 @@
+<?php
+if(!$single) {
+    ?>
+    <h2>Сериалы</h2>
+    <div class="small button-group">
+        <a class="button" href="/manage/serial/add">Добавить новый</a>
+    </div>
+    <table>
+        <thead>
+        <th>ID</th>
+        <th>TMDB id</th>
+        <th>Название</th>
+        <th>Название (EN)</th>
+        <th>Постер</th>
+        <th>Задник</th>
+        <th>Рейтинг</th>
+        <th>Звезды</th>
+        <th>Описание</th>
+        <th>Год</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($serials as $serial) {
+            ?>
+            <tr>
+                <td><?=$serial->id;?></td>
+                <td><?=$serial->tmdb_id;?></td>
+                <td><a href="/manage/serial/<?= $serial->id; ?>"><?=$serial->title;?></a></td>
+                <td><?=$serial->title_en;?></td>
+                <td><img src="<?=$serial->image;?>" alt=""></td>
+                <td><img src="<?=$serial->image_back;?>" alt=""></td>
+                <td><?=$serial->rating;?></td>
+                <td><?=$serial->stars;?></td>
+                <td><?=$serial->description;?></td>
+                <td><?=$serial->year;?></td>
+
+                <td>
+                    <a href="/manage/serial/<?= $serial->id; ?>/delete"><i class="fi-x"></i></a>
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
+    <?php
+}else{
+    $id = $serial->id;
+    if(is_null($id)){
+        $id = 'add';
+    }
+
+    ?>
+    <form method="post" name="form" action="/manage/serial/<?=$id;?>/update">
+        <div class="row">
+            <label for="">
+                TMDB id &nbsp;&nbsp;&nbsp; <a href="#" class="tmdb-link"><i class="fi-arrow-down"></i> get from tmdb</a>
+                <input type="text" name="tmdb_id" value="<?=$serial->tmdb_id;?>">
+            </label>
+            <label for="">
+                Название
+                <input type="text" name="title" value="<?=$serial->title;?>">
+            </label>
+            <label for="">
+                Название (EN)
+                <input type="text" name="title_en" value="<?=$serial->title_en;?>">
+            </label>
+            <label for="">
+                ЧПУ &nbsp;&nbsp;&nbsp; <a href="#" class="gen-label"><i class="fi-wrench"></i> generate</a>
+                <input type="text" name="label" value="<?=$serial->label;?>">
+            </label>
+            <label for="">
+                Постер
+                <img src="<?=$serial->image;?>" alt="">
+                <input type="text" name="image" value="<?=$serial->image;?>">
+            </label>
+            <label for="">
+                Задник
+                <img src="<?=$serial->image_back;?>" alt="">
+                <input type="text" name="image_back" value="<?=$serial->image_back;?>">
+            </label>
+            <label for="">
+                Возрастной рейтинг
+                <input type="text" name="rating" value="<?=$serial->rating;?>">
+            </label>
+            <label for="">
+                Количество звезд
+                <input type="number" name="stars" step="0.01" value="<?=$serial->stars;?>">
+            </label>
+            <label for="">
+                Год
+                <input type="number" name="year" value="<?=$serial->year;?>">
+            </label>
+            <label for="">
+                Описание
+                <textarea name="description" id="" cols="30" rows="10"><?=$serial->description;?></textarea>
+            </label>
+            <fieldset>
+                <legend>Категории</legend>
+                <?php
+                foreach($cats as $cat){
+                    ?>
+                    <label><input name="category[]" type="checkbox" data-tmdb="<?=$cat['tmdb_id'];?>" value="<?=$cat['id'];?>" <?php if($cat['selected']==true){?>checked<?php }?>> <?=$cat['title'];?></label>
+                    <?php
+                }
+                ?>
+            </fieldset>
+            <input type="submit" class="button" value="Сохранить">
+        </div>
+    </form>
+    <script>
+        var type_ = 'serial';
+    </script>
+    <?php
+}
