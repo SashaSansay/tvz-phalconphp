@@ -8,7 +8,7 @@ if($promo){
 ?>
 <section class="section section-main">
     <?php $this->partial('shared/menu-wrap');?>
-    <a class="main-section__link" href="/serial/<?=$promo->label;?>/<?=$last->season;?>/<?=$last->series_num;?>">
+    <a class="main-section__link" href="/serial/<?=$promo->label;?>">
         <div class="main-section__image" style="background-image: url(<?=$promo->getImageBackThumb();?>)"></div>
         <div class="section-inner section-inner_main main-width">
             <div class="main-section__title"><?=$promo->title;?></div>
