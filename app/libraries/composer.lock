@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5119e34df3feeadf945336bdaf49fb98",
+    "content-hash": "b5e74d32020d97cd2b4873a16b402092",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -299,16 +299,16 @@
         },
         {
             "name": "php-ffmpeg/php-ffmpeg",
-            "version": "0.6.1",
+            "version": "0.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-FFMpeg/PHP-FFMpeg.git",
-                "reference": "7687be530c0bb22ee92ee8924cb0ff0e5edd5e5d"
+                "reference": "7cff2ecb23d48f927981ad8cee0583d41eb8d620"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-FFMpeg/PHP-FFMpeg/zipball/7687be530c0bb22ee92ee8924cb0ff0e5edd5e5d",
-                "reference": "7687be530c0bb22ee92ee8924cb0ff0e5edd5e5d",
+                "url": "https://api.github.com/repos/PHP-FFMpeg/PHP-FFMpeg/zipball/7cff2ecb23d48f927981ad8cee0583d41eb8d620",
+                "reference": "7cff2ecb23d48f927981ad8cee0583d41eb8d620",
                 "shasum": ""
             },
             "require": {
@@ -329,7 +329,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.6-dev"
+                    "dev-master": "0.7-dev"
                 }
             },
             "autoload": {
@@ -356,6 +356,11 @@
                     "name": "Patrik Karisch",
                     "email": "patrik@karisch.guru",
                     "homepage": "http://www.karisch.guru"
+                },
+                {
+                    "name": "Romain Biard",
+                    "email": "romain.biard@gmail.com",
+                    "homepage": "https://www.strime.io/"
                 }
             ],
             "description": "FFMpeg PHP, an Object Oriented library to communicate with AVconv / ffmpeg",
@@ -369,7 +374,7 @@
                 "video",
                 "video processing"
             ],
-            "time": "2016-03-08T00:47:06+00:00"
+            "time": "2017-02-27T15:08:47+00:00"
         },
         {
             "name": "psr/log",

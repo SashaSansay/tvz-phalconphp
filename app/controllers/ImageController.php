@@ -111,7 +111,7 @@ class ImageController extends ControllerBase
 
         include __DIR__.'/../libraries/vendor/autoload.php';
 
-        header('Content-Type: image/jpeg');
+        header('Content-Type: image/gif');
 
         $frontCache = new \Phalcon\Cache\Frontend\Base64(array(
             "lifetime" => 60*60*24*3
@@ -124,29 +124,33 @@ class ImageController extends ControllerBase
         ));
 
         //thumb - 250 150
+        $cacheKey = 'preview.'.$series->id.'.png.cache';
 
         try{
 
-            $cacheKey = 'preview.'.$series->id.'.png.cache';
             $img = $cache->get($cacheKey);
             if($img === null){
                 $ffmpeg = FFMpeg\FFMpeg::create([
                     'ffmpeg.binaries' => exec('which ffmpeg'),
                     'ffprobe.binaries' => exec('which ffprobe'),
                 ]);
+                $series->video_src = str_replace('https','http',$series->video_src);
                 $video = $ffmpeg->open($series->video_src);
                 $frame = $video->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(120));
                 $frame->save(__DIR__.'/../cache/series-'.$series->id.'.jpg');
-//            $img = file_get_contents(__DIR__.'/../cache/series-'.$series->id.'.jpg');
+//                $video
+//                    ->gif(FFMpeg\Coordinate\TimeCode::fromSeconds(120), new FFMpeg\Coordinate\Dimension(640, 480), 3)
+//                    ->save(__DIR__.'/../cache/series-'.$series->id.'.gif');
 
                 $handle = fopen(__DIR__.'/../cache/series-'.$series->id.'.jpg', 'rb');
                 $img = new Imagick();
                 $img->readImageFile($handle);
-                $img->thumbnailImage(500,300,true);
+                $img->thumbnailImage(600,600,true);
 
                 $cache->save($cacheKey, $img->getImageBlob());
             }
         }catch (Exception $ex){
+//            var_dump($ex->getTraceAsString());
             $img = file_get_contents($series->getSerial()->image);
             $cache->save($cacheKey, $img);
         }
