@@ -82,7 +82,7 @@ class ImageController extends ControllerBase
 
 //            $img = new Phalcon\Image\Adapter\Imagick($img_);
             switch($image){
-                case 1 : $img->thumbnailImage(500,300,true); break;
+                case 1 : $img->thumbnailImage(600,600,true); break;
                 case 2 : $img->thumbnailImage(1200, 600,true); break;
             }
 
