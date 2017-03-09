@@ -119,6 +119,7 @@ class SerialController extends ControllerBase
         $this->tag->appendTitle(' | Смотреть сериал: '.$serial->title);
         $this->CTags->appendPageTitle(' | Смотреть сериал: '.$serial->title);
         $this->CTags->setDescription('Смотреть '.$serial->title.' онлайн. '.$serial->description);
+        $this->CTags->setImage('https://tvz.im'.$serial->getImageBackThumb());
 
         $this->view->setVar('seasons',$seasons);
         $this->view->setVar('serial_series',$serial_series);
