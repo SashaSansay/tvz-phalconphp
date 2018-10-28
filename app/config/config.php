@@ -21,7 +21,7 @@ return new \Phalcon\Config(array(
 	),
 	'options' => array(
 		'salt' 				=> $salt,
-		'admin_pass' 		=> '46058a92372d43b8bfc9e8fd7fb22fac86a32a1bee283586fb33e612a7bdd860',//hash_pbkdf2('sha256','oF8hh58CiLYz',$salt, 100),
+		'admin_pass' 		=> hash_pbkdf2('sha256','8yNR3inaki',$salt, 100),//'46058a92372d43b8bfc9e8fd7fb22fac86a32a1bee283586fb33e612a7bdd860',//hash_pbkdf2('sha256','oF8hh58CiLYz',$salt, 100),
 		'debug_sql' 		=> false,
 		'date_format' 		=> 'Y-m-d',
 		'time_format'		=> 'H:i:s',

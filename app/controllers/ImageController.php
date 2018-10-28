@@ -86,6 +86,10 @@ class ImageController extends ControllerBase
                 case 2 : $img->thumbnailImage(1200, 600,true); break;
             }
 
+            $img->gaussianBlurImage(0.8, 10);
+            $img->setImageCompressionQuality(70);
+            $img->stripImage();
+
             $cache->save($cacheKey, $img->getImageBlob());
         }
 
@@ -146,6 +150,10 @@ class ImageController extends ControllerBase
                 $img = new Imagick();
                 $img->readImageFile($handle);
                 $img->thumbnailImage(600,600,true);
+
+                $img->gaussianBlurImage(0.8, 10);
+                $img->setImageCompressionQuality(70);
+                $img->stripImage();
 
                 $cache->save($cacheKey, $img->getImageBlob());
             }

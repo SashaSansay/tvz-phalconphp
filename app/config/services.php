@@ -98,13 +98,14 @@ $di->set('router', function() {
 			)
 	);
 
-	$router->add(
-			'/i/p/{id:([0-9]+)}',
-			array(
-					'controller' => 'image',
-					'action' => 'preview'
-			)
-	);
+    $router->add(
+        '/i/p/{id:([0-9]+)}',
+        array(
+            'controller' => 'image',
+            'action' => 'preview'
+        )
+    );
+
 
 	return $router;
 });
@@ -159,8 +160,12 @@ $di->set('session', function() {
 $di->setShared('config', $config);
 
 $di->set('CTags',function(){
-	return new CTags();
+    return new CTags();
 });
+
+//$di->set('ApiValidator',function(){
+//    return new ApiV();
+//});
 
 $di->setShared('dispatcher', function () {
 	$eventsManager = new EventsManager();
